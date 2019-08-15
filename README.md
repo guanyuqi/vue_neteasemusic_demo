@@ -1,29 +1,17 @@
-# net_music
+### day1：
 
-## Project setup
-```
-npm install
-```
+​	今天看了下别人的项目觉得挺有意思的，想了想我的项目都是跟网上视频做的，都是跟着别人思路走，对个人能力感觉没啥用。这次就干脆自己从0开始弄吧，顺便也温习下vue。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+​	晚上主要还是弄了下项目结构然后先用脚手架搭好，写了个搜索框组件，然后大量时间全部去折腾ui框架了，mui，mint-ui，vux全部试了下 感觉还是前两个好点（自己做项目装个插件都要经常报错 ，解决这些问题花了大量时间）
 
-### Compiles and minifies for production
-```
-npm run build
-```
+​								------ 2019.8.14
 
-### Run your tests
-```
-npm run test
-```
+### day2：
 
-### Lints and fixes files
-```
-npm run lint
-```
+​	中午开始做的，下午把tabbar做好了，之前项目用的没改icon，我在网上搜了半天，差点放弃这个mui了，还好别人教用阿里云图标库替换这种骚操作。
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+​	然后今天时间全部花到了axios和mock上面，之前学的是vue-resource，已经过时了就过了遍axios，然后axios的使用又折腾半天，终于弄出来了，然后用mock拦截数据这些。。。。
+
+​	今天花了这么多时间，虽然进度很慢，但是已经把准备工作都做的差不多了，不用想api接口那些了，明天争取把home组件完成。
+
+​								------ 2019.8.15
