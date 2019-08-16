@@ -11,9 +11,14 @@ import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
 import './lib/mui/css/iconfont.css'
 
-//引入mock数据，关闭则注释该行
-// require('./mock'); 
 
+import Mint from 'mint-ui';
+Vue.use(Mint);
+import { Swipe, SwipeItem } from 'mint-ui';
+import 'mint-ui/lib/style.css'
+
+Vue.component(Swipe.name, Swipe);
+Vue.component(SwipeItem.name, SwipeItem);
 
 
 

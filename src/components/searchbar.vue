@@ -1,13 +1,23 @@
 <template>
-    <div>
+    <div id="searchbar">
         <header>
-            <div class="luyin"><img src="../assets/luyin.png" alt=""></div>
-            <div class="inputbox">
-                <img src="../assets/search.png" alt="">
-                <input type="text" value="邓紫棋" placeholder="邓紫棋">
-            </div>
-            <div class="music"><img src="../assets/voice.png" alt=""></div>
+            <div class="bars"><span class="mui-icon mui-icon-bars"></span></div>
+            <!-- <div class="inputbox"> -->
+            <div class="middle"><span>NETEASE-M</span></div>
+            <!-- </div> -->
+            <div class="search"><span class="mui-icon mui-icon-search"></span></div>
         </header>
+        <nav class="mui-bar mui-bar-tab">
+			<router-link to="/home" class="mui-tab-item " style="height:35px" href="#tabbar">
+				<span class="mui-tab-label">推荐</span>
+			</router-link>
+			<router-link to="/about" class="mui-tab-item" style="height:35px" href="#tabbar-with-chat">
+				<span class="mui-tab-label">排行</span>
+			</router-link>
+			<router-link to="/singger" class="mui-tab-item"  style="height:35px" href="#tabbar-with-contact">
+				<span class="mui-tab-label">歌手</span>
+			</router-link>
+		</nav>
     </div>
 </template>
 <script>
@@ -16,60 +26,79 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+    #searchbar{
+        z-index: 1000;
+    }
+    #searchbar, header, .middle,
+    .bars, .search, span
+    {
+        background-color:  #cd2929;
+    }
+    #searchbar{
+        position:fixed;
+        top: 0px;
+        width: 100%;
+    }
     header{
         display: flex;
         height: 40px;
         width: 100%;
-        margin-top:10px;
         align-items: center;
     }
-    .music, .search{
+    .middle{
+        flex:1;
         height: 30px;
-        width: 30px;
-        top: 5px;
-    }
-    .music{
-        margin-right: 13px;
-    }
-    // img{
-    //     width: 30px;
-    //     height: 30px;
-    //     margin-top:4px;  
-    // }
-    .inputbox{
-        flex: 1;
-        height: 35px;
-        margin: 0 10px;
-        position: relative;
-    }
-    .luyin > img{
-        margin: 0 4px 0 14px;
-        width: 30px;
-        height: 30px;
-    }
-    .music > img{
-        width: 30px;
-        height: 30px;
-        
-    }
-    .inputbox > img{
-        position: absolute;
-        height: 18px;
-        width: 18px;
-        margin-left: 80px;
-        top: 50%;
-        margin-top: -6px;
-        
-    }
-    .inputbox > input{
-        height: 100%;
-        width: 100%;
-        background-color: #f7f7f7;
-        border: 0px;
-        outline: none;
-        border-radius: 35px;
         text-align: center;
-        color:#8e908d;
-        font-size: 15px;
+    }
+    .middle > span{
+        line-height: 30px;
+        color: #fff;
+        letter-spacing:4px;
+    }
+    
+    .bars, .search{
+        width: 30px;
+        height: 30px;
+        padding-left: 10px;
+        padding-right: 35px;
+        span{
+            line-height: 30px;
+            color: #fff;
+            font-weight: 500;
+        }
+    }
+    .search{ 
+        padding-right: 31px;
+    }
+    
+    .mui-bar-tab > .mui-active > span{
+	font-size: 14px;
+	height: 22px;
+	box-sizing: border-box;
+	color: #fff;
+	display: block;
+	width: 40px;
+	margin: 0 auto;
+	border-bottom: 2px solid #fff;
+    }
+    #searchbar > .mui-bar{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    }
+    .mui-tab-item > .mui-tab-label{
+    font-size: 14px;
+    height: 22px;
+    display: block;
+    color: #f1f1f1;
+    background-color:#cd2929;
+    box-sizing: border-box;
+    }
+    #searchbar > .mui-bar-tab, .mui-bar{
+    background-color:#cd2929;
+    top: 35px;
+    height: 25px;
+    }
+    .mui-bar-tab > .mui-tab-item{
+        height: 35px;
     }
 </style>
