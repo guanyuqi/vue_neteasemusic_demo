@@ -22,13 +22,13 @@
                         <span class="mui-icon iconfont icon-Video"></span>
                         <span class="listheadspan">播放全部<span>(共{{ musiclist.length }}首)</span></span>
                     </div>
-                    <div class="countantbox" v-for="item in musiclist" :key="item.id">
+                    <router-link class="countantbox" v-for="item in musiclist" :key="item.id" :to="'/home/music' + item.id">
                         <div class="num">{{item.id}}</div>
                         <div class="msg">
                             <div>{{item.name}}</div>
                             <div>{{item.singer}}</div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -59,7 +59,6 @@ export default {
         axios.get('https://www.csdn.net/api/song')
             .then(function (res) {
             that.musiclistinfo = res.data.songimg.img[that.id-1]
-            console.log(that.musiclistinfo)
             })
             .catch(function (error) {
             console.log(error);
@@ -88,7 +87,8 @@ export default {
 </script>
 <style lang="scss">
     #musiclist > .mint-header {
-        background-color:transparent; 
+        background-color:transparent;
+        margin-top: 10px;
     }
     .bgimg{
          position: relative;
@@ -154,21 +154,24 @@ export default {
     .countantbox{
         border-top: 1px solid #e4e4e4;
         height: 50px;
+        background-color: #f2f2f2;
         .num{
             height: 50px;
             float: left;
             width: 50px;
             text-align: center;
             line-height: 50px;
+            color: #757575;
         }
         .msg{
             height: 50px;
             padding-top: 5px;
             font-size: 16px;
             letter-spacing:1px;
+            color: #000;
             div:nth-child(2){
-                color: #757575;
                 font-size: 12px;
+                color: #757575;
             }
         }
     }

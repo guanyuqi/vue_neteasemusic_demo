@@ -68,7 +68,6 @@ export default {
       axios.get('https://www.csdn.net/api/song')
         .then(function (res) {
           that.songimg = res.data.songimg.img
-          console.log(that.songimg)
         })
         .catch(function (error) {
           console.log(error);
@@ -125,8 +124,8 @@ ul{
   list-style: none;
 }
 ul>li{
-  width: 120px;
-  height: 160px;
+  width: 115px;
+  height: 155px;
   margin: 10px 0px 15px 0px;
   
 }

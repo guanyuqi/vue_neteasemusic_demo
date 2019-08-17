@@ -23,7 +23,10 @@ export default {
     $route(e){
       if(e.name == 'musiclist'){
         this.search = false
-      }else{
+      }else if(e.name == 'player'){
+        this.search = false
+      }
+      else{
         this.search = true
       }
     }
@@ -43,7 +46,7 @@ export default {
 .v-leave-to{
   opacity: 0;
   transform: translateX(100%);
-  position: absolute;
+  // position: absolute;
 }
 .v-enter-active,
 .v-leave-to-active{

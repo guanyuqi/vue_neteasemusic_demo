@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import searchbar from "../components/searchbar.vue"
+// import searchbar from "../components/searchbar.vue"
 import Aplayer from 'vue-aplayer'
 
 export default {
@@ -24,8 +24,11 @@ export default {
 
     }
   },
+  computed:{
+    
+  },
   components:{
-    searchbar,
+    // searchbar,
     Aplayer,
   }
 }
@@ -38,6 +41,6 @@ export default {
   .demo{
     width: 300px;
     height: 500px;
-    background-color: #213453;
+    background-color: #6a788f;
   }
 </style>
