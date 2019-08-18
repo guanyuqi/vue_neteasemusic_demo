@@ -2,6 +2,7 @@
   src:url('../fonts/iconfont.ttf') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
 }
 
+
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -16,5 +17,29 @@
 
 .icon-erji:before {
   content: "\e602";
+}
+
+.icon-Repeat:before {
+  content: "\e8c1";
+}
+
+.icon-Mix:before {
+  content: "\e8c2";
+}
+
+.icon-Play:before {
+  content: "\e8c4";
+}
+
+.icon-Pause:before {
+  content: "\e8c5";
+}
+
+.icon-Next:before {
+  content: "\e8c6";
+}
+
+.icon-Previous:before {
+  content: "\e8c7";
 }
 

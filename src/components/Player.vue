@@ -18,6 +18,29 @@
                     <img src="http://p1.music.126.net/oVCpfPtfAqNcAbRWMU7ffA==/109951163801547166.jpg?param=130y130">
                 </div>
             </div>
+            <div class="control">
+                <div class="progress">
+                    <mt-range v-model="rangeValue" :value='rangeValue' :step="10" :max="offset">
+					</mt-range>
+                </div>
+                <div class="controlbar">
+                    <div class="sequence">
+                        <span class="mui-icon iconfont icon-Repeat"></span>
+                    </div>
+                    <div class="front">
+                        <span class="mui-icon iconfont icon-Previous"></span>
+                    </div>
+                    <div class="playing">
+                        <span class="mui-icon iconfont icon-Play"></span>
+                    </div>
+                    <div class="behind">
+                        <span class="mui-icon iconfont icon-Next"></span>
+                    </div>
+                    <div class="love">
+                        <span class="mui-icon iconfont icon-Mix"></span>
+                    </div>
+                </div>
+            </div>
         
         </div>
         
@@ -52,12 +75,11 @@ export default {
     }
     #palyer  .backimg{
         position: absolute;
-        // left: -50%;
-        // top: -50%;
         width: 100%;
         height: 100%;
         z-index: -1;
         filter: blur(20px);
+        -webkit-filter: blur(20px);
     }
     .normalplayer{
         position: fixed;
@@ -95,5 +117,44 @@ export default {
     }
     .diskinner > img{
         border-radius: 50%;
+    }
+    .control{
+        width: 100%;
+        background-color: pink;
+        height: 200px;
+        position: fixed;
+        bottom: 0;
+        .progress{
+            height: 50px;
+            background-color: hotpink;
+        }
+        .controlbar{
+            background-color: skyblue;
+            height: 150px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            div{
+                width: 60px;
+                height: 60px;
+                background-color: #ccc;
+                text-align: center;      
+                span{
+                    font-size: 25px;
+                     line-height: 60px;
+                }
+            }
+            .sequence, .love{
+                span{
+                    font-size: 20px;
+                }
+            }
+            .playing{
+                span{
+                    font-size: 35px;
+                }
+            }
+        }
+
     }
 </style>
