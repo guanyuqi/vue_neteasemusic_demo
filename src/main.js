@@ -25,6 +25,9 @@ import 'mint-ui/lib/style.css'
 
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+import { Range } from 'mint-ui';
+
+Vue.component(Range.name, Range);
 
 
 
