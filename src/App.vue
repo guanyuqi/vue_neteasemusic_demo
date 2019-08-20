@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-	<searchbar v-if="search"></searchbar>
+	<searchbar v-show="searchflg"></searchbar>
     <transition mode="out-in">
       <router-view/>
     </transition>
@@ -9,11 +9,24 @@
 </template>
 <script>
 import searchbar from "./components/searchbar.vue"
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 
 export default {
   data() {
     return {
-      search:true
+      // searchflg:true
+    }
+  },
+  mounted(){
+    this.get_currentroutename()
+  },
+  computed:{
+    ...mapState(['searchflg'])
+  },
+  methods:{
+    get_currentroutename(){
+      this.currentroutename = this.$route.name
+      this.$store.dispatch('searchflg',this.currentroutename)
     }
   },
   components:{
@@ -21,14 +34,7 @@ export default {
   },
   watch:{
     $route(e){
-      if(e.name == 'musiclist'){
-        this.search = false
-      }else if(e.name == 'player'){
-        this.search = false
-      }
-      else{
-        this.search = true
-      }
+      this.get_currentroutename()
     }
   }
 }

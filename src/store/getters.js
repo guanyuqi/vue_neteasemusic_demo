@@ -1,14 +1,6 @@
-export const singer = state => state.singer
+/*
+包含n个基于state的getter计算属性方法的对象模块
+ */
+export default {
 
-export const playing = state => state.playing
-
-export const fullScreen = state => state.fullScreen
-
-export const playlist = state => state.playlist
-
-export const sequenceList = state => state.sequenceList
-
-export const mode = state => state.mode
-
-export const currentIndex = state => state.currentIndex
-
+}

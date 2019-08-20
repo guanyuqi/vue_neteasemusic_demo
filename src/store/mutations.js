@@ -1,27 +1,24 @@
-import * as types from './mutation-types'
+/*
+包含n个用于直接更新状态的方法的对象模块
+ */
 
-const mutations = {
-  [types.SET_SINGER](state, singer) {
-    state.singer = singer
+import {SET_SEARCHFLG_SHOW, SET_SEARCHFLG_HIDE, SET_PLAY_TRUE, SET_PLAY_FALSE} from './mutation-types'
+
+export default {
+  [SET_SEARCHFLG_SHOW] (state ) {
+    state.searchflg = true
   },
-  [types.SET_PLAYING_STATE](state, flag) {
-    state.playing = flag
+
+  [SET_SEARCHFLG_HIDE] (state) {
+    state.searchflg = false
   },
-  [types.SET_FULL_SCREEN](state, flag) {
-    state.fullScreen = flag
+
+  [SET_PLAY_TRUE] (state) {
+    state.play = true
   },
-  [types.SET_PLAYLIST](state, list) {
-    state.playlist = list
+
+  [SET_PLAY_FALSE] (state) {
+    state.play = false
   },
-  [types.SET_SEQUENCE_LIST](state, list) {
-    state.sequenceList = list
-  },
-  [types.SET_PLAY_MODE](state, mode) {
-    state.mode = mode
-  },
-  [types.SET_CURRENT_INDEX](state, index) {
-    state.currentIndex = index
-  },
+
 }
-
-export default mutations

@@ -38,9 +38,9 @@
                     <div class="front">
                         <span class="mui-icon iconfont icon-Previous"></span>
                     </div>
-                    <div class="playing" @click="play">
-                        <span v-if="playflg" class="mui-icon iconfont icon-Play"></span>
-                        <span v-if="!playflg" class="mui-icon iconfont icon-Pause"></span>
+                    <div class="playing" >
+                        <span v-if="playflg"  @click="play" class="mui-icon iconfont icon-Play"></span>
+                        <span v-if="!playflg" @click="stop" class="mui-icon iconfont icon-Pause"></span>
                     </div>
                     <div class="behind">
                         <span class="mui-icon iconfont icon-Next"></span>
@@ -56,30 +56,28 @@
     </div>
 </template>
 <script>
-import { type } from 'os';
-import { when } from 'q';
-// import {{ watch }} from ''
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
+// import { type } from 'os';
+// import { when } from 'q';
+// import { setTimeout } from 'timers';
 export default {
     data(){
         return {
             playflg :true,
             id: this.$route.params.id, 
-            rangeValue: 0, 
+            rangeValue: 0,            //进度值
             duration: 100,          //总时长
             duration_show_min: 1,
             duration_show_sec: 1,
             timer : null,
             current : '00:00',
+            currentroutename: ''
         } 
     },
     mounted(){
-        // clearInterval(this.timer);        
-        // this.timer = null;
         this.play()
         this.gettime()
-        // this.timer = setInterval(() => {
-        //     console.log("fuduji")
-        // },1000)
+        this.get_currentroutename()
         
     },
     beforeDestroy() {
@@ -95,11 +93,11 @@ export default {
             this.playflg = !this.playflg
             let audio = document.querySelector('#audio');
             let disk = document.querySelector('#diskinner')
-            console.log(audio.duration)
             if(this.playflg == false){
+                console.log('正在播放')
                 audio.play() 
                 disk.classList.add("rotate");
-                disk.style.webkitAnimationPlayState = "running";       //disk旋转
+                disk.style.webkitAnimationPlayState = "running";      //disk旋转
                 this.timer = setInterval(() => {                       //开启定时器
                    
                     
@@ -118,50 +116,83 @@ export default {
                     }else{
                         this.current = "0"+min+":"+sec
                     }
-                    
-                    if(audio.currentTime >= audio.duration){        //时间满了后完成停止的操作即可，也要把时间归零
-                        this.playflg = true           
-                        audio.pause()
+                    if(audio.currentTime >= audio.duration){
+                                           //时间满了后完成停止的操作即可，也要把时间归零
+                        this.playflg = false           
+                        this.stop()
+                        console.log('时间满 停止第一次')
                         disk.style.webkitAnimationPlayState = "paused";
                         this.current = '00:00' 
                         this.rangeValue = 0
+                        audio.currentTime = 0
+                        this.stop()
+                        console.log('时间满 停止第二次')
                         clearInterval(this.timer);        
                         this.timer = null;
+                        console.log(audio.paused)
                     }
                 },1000)   
             }else{
+                console.log('停止')
+                audio.pause()
+                disk.style.webkitAnimationPlayState = "paused";
+                clearInterval(this.timer);        
+                this.timer = null;   
+            }
+            
+        },
+        stop(){
+            let audio = document.querySelector('#audio');
+            let disk = document.querySelector('#diskinner')
+            this.playflg = !this.playflg
+            if(this.playflg == true){
+                console.log('停止')
                 audio.pause()
                 disk.style.webkitAnimationPlayState = "paused";
                 clearInterval(this.timer);        
                 this.timer = null;
-
-                
             }
-            
         },
         gettime(){
             let audio = document.querySelector('#audio');
-            console.log(audio.duration + '11111')
             let that = this
             audio.addEventListener("canplay", function(){
-                    console.log(audio.duration + '11111')
-                    console.log(this)
                     audio.play()
                      var audio_duration = parseInt(audio.duration)
                     that.duration = audio_duration
                     that.duration_show_min = parseInt(audio.duration/60)
                     that.duration_show_sec = parseInt(audio_duration % 60)
-                    // console.log(that.duration_show_min+':'+that.duration_show_sec)
                     })
 
         },
-        settime(){
-           
-        },
-
+        get_currentroutename(){
+            this.currentroutename = this.$route.name
+            console.log(this.currentroutename)
+            this.$store.dispatch('searchflg',this.currentroutename)
+         }
+    },
+    computed:{
+        ...mapState(['searchflg'])
     },
     watch:{
-
+        rangeValue(rangeValue){
+            
+            console.log("检测!!!!!!!!!!!")
+            if(this.rangeValue == this.duration){ 
+                    
+                    this.rangeValue = 0    
+                    audio.currentTime = 0
+                    this.current = '00:00'
+                    this.playflg = false           
+                    this.stop()
+                    setTimeout(()=>{
+                        let audio = document.querySelector('#audio');
+                        audio.pause()
+                        console.log("我听了")
+                    },100)
+                    
+            }
+        }
     }  
 }
 </script>

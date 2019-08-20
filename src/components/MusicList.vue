@@ -36,12 +36,14 @@
     </div>
 </template>
 <script>
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 export default {
     data(){
         return {
             id: this.$route.params.id,
             musiclistinfo:[],
-            musiclist:[]
+            musiclist:[],
+            currentroutename: ''
         } 
     },
     mounted(){
@@ -51,6 +53,7 @@ export default {
     //挂载请求
     this.getmusiclistinfo()
     this.getmusiclist()
+    this.get_currentroutename()
     },
     methods:{
     getmusiclistinfo(){
@@ -78,8 +81,14 @@ export default {
             })
             .then(function () {
             });
+    },
+    get_currentroutename(){
+      this.currentroutename = this.$route.name
+      console.log(this.currentroutename)
+      this.$store.dispatch('searchflg',this.currentroutename)
     }
-  },
+
+    },
     
 
 

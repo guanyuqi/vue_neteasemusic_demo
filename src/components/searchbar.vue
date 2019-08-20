@@ -22,7 +22,14 @@
 </template>
 <script>
 export default {
-    
+    mounted(){
+        this.haha()
+    },
+    methods:{
+        haha(){
+            console.log('头部加载')
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>

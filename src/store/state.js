@@ -1,19 +1,7 @@
-// import {playMode} from 'common/js/config'
-// import {loadSearch, loadPlay, loadFavorite} from '../lib/js/cache.js'
-
-const state = {
-  singer: {},
-  playing: false,
-  fullScreen: false,
-  playlist: [],
-  sequenceList: [],
-  // mode: playMode.sequence,
-  currentIndex: -1,
-  disc: {},
-  topList: {},
-  // searchHistory: loadSearch(),
-  // playHistory: loadPlay(),
-  // favoriteList: loadFavorite()
+/*
+状态对象模块
+ */
+export default {
+  searchflg : true,
+  play: false,
 }
-
-export default state

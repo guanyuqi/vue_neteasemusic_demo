@@ -1,36 +1,35 @@
 <template>
   <div class="about">
     
-    <div class="demo"></div>
-    <aplayer autoplay
-    :music="{
-      title: 'secret base~君がくれたもの~',
-      artist: 'Silent Siren',
-      src: 'http://music.163.com/song/media/outer/url?id=476592630.mp3',
-      pic: 'http://p3.music.126.net/EkPU_UxbmQzt2ENftl6IhA==/109951164297146790.jpg?param=200y200',
-      }"
-    />
+    <button @click="dian">点我</button>
+    <div class="laoer">{{searchflg}}{{nmsl}}</div>
 
   </div>
 </template>
 
 <script>
-// import searchbar from "../components/searchbar.vue"
-import Aplayer from 'vue-aplayer'
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 
 export default {
   data() {
     return {
-
+      currentroutename: '',
     }
   },
-  computed:{
-    
+  mounted(){
+    this.get_currentroutename()
   },
-  components:{
-    // searchbar,
-    Aplayer,
-  }
+  computed:{
+    ...mapState(['searchflg','nmsl'])
+  },
+  methods:{
+    dian(){
+      this.$store.dispatch('searchflg',this.currentroutename)
+    },
+    get_currentroutename(){
+      this.currentroutename = this.$route.name
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -42,5 +41,10 @@ export default {
     width: 300px;
     height: 500px;
     background-color: #6a788f;
+  }
+  .laoer{
+    width: 200px;
+    height: 200px;
+    background-color: pink;
   }
 </style>
