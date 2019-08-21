@@ -2,7 +2,8 @@
 包含n个用于直接更新状态的方法的对象模块
  */
 
-import {SET_SEARCHFLG_SHOW, SET_SEARCHFLG_HIDE, SET_PLAY_TRUE, SET_PLAY_FALSE} from './mutation-types'
+import {SET_SEARCHFLG_SHOW, SET_SEARCHFLG_HIDE, SET_PLAY_TRUE, SET_PLAY_FALSE,
+        SET_PLAYERSHOW_TRUE, SET_PLAYERSHOW_FALSE} from './mutation-types'
 
 export default {
   [SET_SEARCHFLG_SHOW] (state ) {
@@ -21,4 +22,11 @@ export default {
     state.play = false
   },
 
+  [SET_PLAYERSHOW_TRUE] (state) {
+    state.playershow = true
+  },
+  
+  [SET_PLAYERSHOW_FALSE] (state) {
+    state.playershow = false
+  },
 }

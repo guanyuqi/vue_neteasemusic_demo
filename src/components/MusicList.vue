@@ -22,13 +22,13 @@
                         <span class="mui-icon iconfont icon-Video"></span>
                         <span class="listheadspan">播放全部<span>(共{{ musiclist.length }}首)</span></span>
                     </div>
-                    <router-link class="countantbox" v-for="item in musiclist" :key="item.id" :to="'/home/music' + item.id">
+                    <div class="countantbox" v-for="item in musiclist" :key="item.id" @click="set_player" :to="'/home/music' + item.id">
                         <div class="num">{{item.id}}</div>
                         <div class="msg">
                             <div>{{item.name}}</div>
                             <div>{{item.singer}}</div>
                         </div>
-                    </router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,6 +86,12 @@ export default {
       this.currentroutename = this.$route.name
       console.log(this.currentroutename)
       this.$store.dispatch('searchflg',this.currentroutename)
+    },
+    set_player(){
+        console.log('开始播放')
+        this.$store.dispatch('playshowtrue')
+        console.log('开始播放')
+        this.$store.dispatch('searchflg_1')
     }
 
     },
@@ -140,6 +146,7 @@ export default {
         border-radius: 15px 15px 0 0;
         height: 40px;
         letter-spacing:1px;
+        z-index: 2;
         .iconfont {
             display:block;
             float: left;

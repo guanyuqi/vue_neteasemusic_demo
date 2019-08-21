@@ -1,6 +1,7 @@
 <template>
-    <div id="palyer">
-        <div class="normalplayer">
+    <div id="player" >
+        <audio id="audio" src="http://music.163.com/song/media/outer/url?id=460578140.mp3" ></audio>
+        <div class="normalplayer" v-show="playershow">
             <mt-header fixed>
                 <div @click="back" slot="left">
                     <mt-button icon="back">返回</mt-button>
@@ -18,7 +19,7 @@
                     <img src="http://p1.music.126.net/oVCpfPtfAqNcAbRWMU7ffA==/109951163801547166.jpg?param=130y130">
                 </div>
             </div>
-            <audio id="audio" src="http://music.163.com/song/media/outer/url?id=460578140.mp3"></audio>
+            
             <div class="control">
                 <div class="progress">
                     <mt-range
@@ -52,14 +53,26 @@
             </div>
         
         </div>
+        <div class="miniplayer" v-if="true">
+            <div class="minidisk" @click='normalshow'>
+                <div id="minidiskinner">
+                    <img src="http://p1.music.126.net/oVCpfPtfAqNcAbRWMU7ffA==/109951163801547166.jpg?param=130y130">
+                </div>
+            </div>
+            <div class="miniinfo">
+                <div class="songname">人间不值得</div>
+                <div class="singer">黄诗扶</div>
+            </div>
+            <div class="miniplaying" >
+                <span v-if="playflg"  @click="play" class="mui-icon iconfont icon-Play"></span>
+                <span v-if="!playflg" @click="stop" class="mui-icon iconfont icon-Pause"></span>
+            </div>
+        </div>
         
     </div>
 </template>
 <script>
 import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
-// import { type } from 'os';
-// import { when } from 'q';
-// import { setTimeout } from 'timers';
 export default {
     data(){
         return {
@@ -75,9 +88,9 @@ export default {
         } 
     },
     mounted(){
-        this.play()
+        // this.play()
         this.gettime()
-        this.get_currentroutename()
+        // this.get_currentroutename()
         
     },
     beforeDestroy() {
@@ -86,18 +99,24 @@ export default {
     },
     methods:{
         back(){
-            this.$router.go(-1);//返回上一层
+            //this.$router.go(-1);//返回上一层
+            console.log('player正在回退')
+            this.$store.dispatch('playshowfalse')
+            this.set_index()
         },
         //点击播放按键
         play(){
             this.playflg = !this.playflg
             let audio = document.querySelector('#audio');
             let disk = document.querySelector('#diskinner')
+            let minidisk = document.querySelector('#minidiskinner')
             if(this.playflg == false){
                 console.log('正在播放')
                 audio.play() 
                 disk.classList.add("rotate");
-                disk.style.webkitAnimationPlayState = "running";      //disk旋转
+                minidisk.classList.add("rotate");
+                disk.style.webkitAnimationPlayState = "running";  
+                minidisk.style.webkitAnimationPlayState = "running";    //disk旋转
                 this.timer = setInterval(() => {                       //开启定时器
                    
                     
@@ -122,6 +141,7 @@ export default {
                         this.stop()
                         console.log('时间满 停止第一次')
                         disk.style.webkitAnimationPlayState = "paused";
+                        minidisk.style.webkitAnimationPlayState = "paused";
                         this.current = '00:00' 
                         this.rangeValue = 0
                         audio.currentTime = 0
@@ -133,9 +153,10 @@ export default {
                     }
                 },1000)   
             }else{
-                console.log('停止')
+                console.log('play的停止')
                 audio.pause()
                 disk.style.webkitAnimationPlayState = "paused";
+                minidisk.style.webkitAnimationPlayState = "paused";
                 clearInterval(this.timer);        
                 this.timer = null;   
             }
@@ -143,41 +164,55 @@ export default {
         },
         stop(){
             let audio = document.querySelector('#audio');
-            let disk = document.querySelector('#diskinner')
+            let disk = document.querySelector('#diskinner');
+            let minidisk = document.querySelector('#minidiskinner')
             this.playflg = !this.playflg
             if(this.playflg == true){
-                console.log('停止')
                 audio.pause()
                 disk.style.webkitAnimationPlayState = "paused";
+                minidisk.style.webkitAnimationPlayState = "paused";
                 clearInterval(this.timer);        
                 this.timer = null;
             }
         },
         gettime(){
+            console.log('正在加载时间')
             let audio = document.querySelector('#audio');
             let that = this
             audio.addEventListener("canplay", function(){
-                    audio.play()
-                     var audio_duration = parseInt(audio.duration)
-                    that.duration = audio_duration
-                    that.duration_show_min = parseInt(audio.duration/60)
-                    that.duration_show_sec = parseInt(audio_duration % 60)
-                    })
-
+                audio.play()
+                var audio_duration = parseInt(audio.duration)
+                that.duration = audio_duration
+                that.duration_show_min = parseInt(audio.duration/60)
+                that.duration_show_sec = parseInt(audio_duration % 60)
+                console.log(that.duration_show_min)
+                })
         },
-        get_currentroutename(){
-            this.currentroutename = this.$route.name
-            console.log(this.currentroutename)
-            this.$store.dispatch('searchflg',this.currentroutename)
-         }
+        set_index(){
+            let player = document.querySelector('#player')
+            if(player.style.zIndex == -1){
+                player.style.zIndex = 1001
+            }else if(player.style.zIndex == 1001){
+                player.style.zIndex = -1
+            }
+            
+        },
+        normalshow(){
+            console.log('显示大播放器')
+            this.$store.dispatch('playshowtrue')
+        }
     },
     computed:{
-        ...mapState(['searchflg'])
+        ...mapState(['searchflg','playershow']),
+
+        isShow() {  
+            return this.$store.state.playershow;
+        }
     },
     watch:{
         rangeValue(rangeValue){
             
-            console.log("检测!!!!!!!!!!!")
+            // console.log("检测!!!!!!!!!!!")
             if(this.rangeValue == this.duration){ 
                     
                     this.rangeValue = 0    
@@ -192,23 +227,39 @@ export default {
                     },100)
                     
             }
+        },
+        $route(e){
+            this.$store.dispatch('playshowfalse')
+        },
+        isShow(){
+            if(this.$store.state.playershow == true ){
+                console.log('检测到playershow为true变化')
+                this.play()
+                this.gettime()
+                this.set_index()
+                 console.log('检测到index')
+            }else{
+                console.log('watch调用back')
+                this.back()
+            }
         }
     }  
 }
 </script>
 <style lang="scss">
-    #palyer{
-        height:100%;
-        width:100%;
-        position: absolute;
-        background-color: #666;
+    // #player{
+    //     height:100%;
+    //     width:100%;
+    //     position: absolute;
+    //     z-index: 1001;
+    //     // background-color: #666;
 
-    }
-    #palyer  .mint-header {
+    // }
+    #player  .mint-header {
         background-color:transparent; 
         margin-top: 10px;
     }
-    #palyer  .backimg{
+    #player  .backimg{
         position: absolute;
         width: 100%;
         height: 100%;
@@ -221,6 +272,7 @@ export default {
         height: 100%;
 		width: 100%;
         z-index: 150;
+        background-color: #666;
     }
     .normalplayer > nav{
         height: 70px;
@@ -313,5 +365,47 @@ export default {
     }
     .rotate{
         animation:rotating 20s linear 0.2s infinite;
+    }
+    .miniplayer{
+        width: 100%;
+        height: 8%;
+        position: fixed;
+        bottom: 0;
+        background-color:rgba(255, 255, 255, .85);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+    }
+    .minidisk{
+        
+        #minidiskinner{
+            height: 50px;
+            width: 50px;
+            margin-left: 15px;
+            img{
+                border-radius: 50%;
+            }
+            
+        }
+    }
+    .miniinfo{
+        height: 50px;
+        width: 60%;
+        margin-left: 20px;
+        .songname{
+            font-size: 16px;
+        }
+        .singer{
+            margin-top: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+    }
+    .miniplaying{
+        margin: 0 auto;
+        .iconfont{
+            font-size: 25px;
+        }
+        
     }
 </style>

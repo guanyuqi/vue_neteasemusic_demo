@@ -1,6 +1,7 @@
 <template>
   <div id="app">
 	<searchbar v-show="searchflg"></searchbar>
+   <Player></Player>
     <transition mode="out-in">
       <router-view/>
     </transition>
@@ -9,6 +10,7 @@
 </template>
 <script>
 import searchbar from "./components/searchbar.vue"
+import Player from "./components/Player.vue"
 import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 
 export default {
@@ -31,6 +33,7 @@ export default {
   },
   components:{
     searchbar,
+    Player
   },
   watch:{
     $route(e){
