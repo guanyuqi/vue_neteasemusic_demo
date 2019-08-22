@@ -5,4 +5,11 @@ export default {
   searchflg : true,
   play: false,
   playershow: false,
+  miniplayershow: false,
+  songmsg:{
+    name: '',
+    singer: '',
+    img: '',
+    src: '',
+  }
 }

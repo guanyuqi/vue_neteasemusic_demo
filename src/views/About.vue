@@ -1,8 +1,8 @@
 <template>
   <div class="about">
     
-    <button @click="dian">点我</button>
-    <div class="laoer">{{searchflg}}{{nmsl}}</div>
+    <button >点我</button>
+    <div class="laoer">{{searchflg}}</div>
 
   </div>
 </template>
@@ -17,18 +17,26 @@ export default {
     }
   },
   mounted(){
-    this.get_currentroutename()
+    // this.get_currentroutename()
+    this.getmusiclistinfo()
   },
   computed:{
     ...mapState(['searchflg','nmsl'])
   },
   methods:{
-    dian(){
-      this.$store.dispatch('searchflg',this.currentroutename)
+    getmusiclistinfo(){
+        let that = this
+        const axios = require('axios');
+        axios.get('https://www.csdn.net/api/list')
+            .then(function (res) {
+            console.log(res)
+            })
+            .catch(function (error) {
+            console.log(error);
+            })
+            .then(function () {
+            });
     },
-    get_currentroutename(){
-      this.currentroutename = this.$route.name
-    }
   },
 }
 </script>

@@ -31,29 +31,30 @@ let songimg = {
 
 let list = {
   "data":[
-      {"id":"1","name":"够爱","singer":"东城卫"},
-      {"id":"2","name":"Out of Time (Sagan Remix)","singer":"Shane 54/Cubicore"},
-      {"id":"3","name":"空欢喜","singer":"南游记乐队"},
-      {"id":"4","name":"坠落星空","singer":"小星星Aurora"},
-      {"id":"5","name":"Cyberangel","singer":"Hanser"},
-      {"id":"6","name":"EZ4ENCE ","singer":"The Verkkars"},
-      {"id":"7","name":"梦回还","singer":"呦猫UNEKO"},
-      {"id":"8","name":"够爱","singer":"东城卫"},
-      {"id":"9","name":"Out of Time (Sagan Remix)","singer":"Shane 54/Cubicore"},
-      {"id":"10","name":"空欢喜","singer":"南游记乐队"},
-      {"id":"11","name":"坠落星空","singer":"小星星Aurora"},
-      {"id":"12","name":"Cyberangel","singer":"Hanser"},
-      {"id":"13","name":"EZ4ENCE ","singer":"The Verkkars"},
-      {"id":"14","name":"梦回还","singer":"呦猫UNEKO"},
-      {"id":"15","name":"够爱","singer":"东城卫"},
-      {"id":"16","name":"Out of Time (Sagan Remix)","singer":"Shane 54/Cubicore"},
-      {"id":"17","name":"空欢喜","singer":"南游记乐队"},
-      {"id":"18","name":"坠落星空","singer":"小星星Aurora"},
-      {"id":"19","name":"Cyberangel","singer":"Hanser"},
-      {"id":"20","name":"EZ4ENCE ","singer":"The Verkkars"},
-      {"id":"21","name":"梦回还","singer":"呦猫UNEKO"},
+      {"id":"1","name":"够爱","singer":"东城卫",'songid':'http://music.163.com/song/media/outer/url?id=352894.mp3','songimg':'http://p1.music.126.net/rOHSMD05LHAPPK6F4s_I4Q==/41781441867842.jpg'},
+      {"id":"2","name":"Out of Time (Sagan Remix)","singer":"Shane 54/Cubicore",'songid':'http://music.163.com/song/media/outer/url?id=1314777725.mp3','songimg':'http://p1.music.126.net/_s6JoXrFv3E2NPzdU7w6dw==/109951163621935108.jpg'},
+      {"id":"3","name":"空欢喜","singer":"南游记乐队",'songid':'http://music.163.com/song/media/outer/url?id=1299595170.mp3','songimg':'http://p2.music.126.net/pJyzfRiq4MgXUjbdfcOHgg==/109951163620819102.jpg'},
+      {"id":"4","name":"坠落星空","singer":"小星星Aurora",'songid':'http://music.163.com/song/media/outer/url?id=1351520305.mp3','songimg':'http://p1.music.126.net/-kDO5LiKki3bmeF21MaCuQ==/109951163917806959.jpg'},
+      {"id":"5","name":"Cyberangel","singer":"Hanser",'songid':'http://music.163.com/song/media/outer/url?id=1375725396.mp3','songimg':'http://p1.music.126.net/TAiliOjM10DlKiL56fPIMw==/109951163737497396.jpg'},
+      {"id":"6","name":"EZ4ENCE ","singer":"The Verkkars",'songid':'http://music.163.com/song/media/outer/url?id=1346907833.mp3','songimg':'http://p2.music.126.net/mXEv9aXxfiUGGyhjrvUm_Q==/109951163872509815.jpg'},
+      {"id":"7","name":"梦回还","singer":"呦猫UNEKO",'songid':'http://music.163.com/song/media/outer/url?id=405253631.mp3','songimg':'http://p1.music.126.net/hAfIXJP_ZBRQKd1VE_Hqbg==/16625715324173485.jpg'},
+      {"id":"8","name":"够爱","singer":"东城卫",'songid':'http://music.163.com/song/media/outer/url?id=352894.mp3','songimg':'http://p1.music.126.net/rOHSMD05LHAPPK6F4s_I4Q==/41781441867842.jpg'},
+      {"id":"9","name":"Out of Time (Sagan Remix)","singer":"Shane 54/Cubicore",'songid':'http://music.163.com/song/media/outer/url?id=1314777725.mp3','songimg':'http://p1.music.126.net/_s6JoXrFv3E2NPzdU7w6dw==/109951163621935108.jpg'},
+      {"id":"10","name":"空欢喜","singer":"南游记乐队",'songid':'http://music.163.com/song/media/outer/url?id=1299595170.mp3','songimg':'http://p2.music.126.net/pJyzfRiq4MgXUjbdfcOHgg==/109951163620819102.jpg'},
+      {"id":"11","name":"坠落星空","singer":"小星星Aurora",'songid':'http://music.163.com/song/media/outer/url?id=1351520305.mp3','songimg':'http://p1.music.126.net/-kDO5LiKki3bmeF21MaCuQ==/109951163917806959.jpg'},
+      {"id":"12","name":"Cyberangel","singer":"Hanser",'songid':'http://music.163.com/song/media/outer/url?id=1375725396.mp3','songimg':'http://p1.music.126.net/TAiliOjM10DlKiL56fPIMw==/109951163737497396.jpg'},
+      {"id":"13","name":"EZ4ENCE ","singer":"The Verkkars",'songid':'http://music.163.com/song/media/outer/url?id=1346907833.mp3','songimg':'http://p2.music.126.net/mXEv9aXxfiUGGyhjrvUm_Q==/109951163872509815.jpg'},
+      {"id":"14","name":"梦回还","singer":"呦猫UNEKO",'songid':'http://music.163.com/song/media/outer/url?id=405253631.mp3','songimg':'http://p1.music.126.net/hAfIXJP_ZBRQKd1VE_Hqbg==/16625715324173485.jpg'},
+      {"id":"15","name":"够爱","singer":"东城卫",'songid':'http://music.163.com/song/media/outer/url?id=352894.mp3','songimg':'http://p1.music.126.net/rOHSMD05LHAPPK6F4s_I4Q==/41781441867842.jpg'},
+      {"id":"16","name":"Out of Time (Sagan Remix)","singer":"Shane 54/Cubicore",'songid':'http://music.163.com/song/media/outer/url?id=1314777725.mp3','songimg':'http://p1.music.126.net/_s6JoXrFv3E2NPzdU7w6dw==/109951163621935108.jpg'},
+      {"id":"17","name":"空欢喜","singer":"南游记乐队",'songid':'http://music.163.com/song/media/outer/url?id=1299595170.mp3','songimg':'http://p2.music.126.net/pJyzfRiq4MgXUjbdfcOHgg==/109951163620819102.jpg'},
+      {"id":"18","name":"坠落星空","singer":"小星星Aurora",'songid':'http://music.163.com/song/media/outer/url?id=1351520305.mp3','songimg':'http://p1.music.126.net/-kDO5LiKki3bmeF21MaCuQ==/109951163917806959.jpg'},
+      {"id":"19","name":"Cyberangel","singer":"Hanser",'songid':'http://music.163.com/song/media/outer/url?id=1375725396.mp3','songimg':'http://p1.music.126.net/TAiliOjM10DlKiL56fPIMw==/109951163737497396.jpg'},
+      {"id":"20","name":"EZ4ENCE ","singer":"The Verkkars",'songid':'http://music.163.com/song/media/outer/url?id=1346907833.mp3','songimg':'http://p2.music.126.net/mXEv9aXxfiUGGyhjrvUm_Q==/109951163872509815.jpg'},
+      {"id":"21","name":"梦回还","singer":"呦猫UNEKO",'songid':'http://music.163.com/song/media/outer/url?id=405253631.mp3','songimg':'http://p1.music.126.net/hAfIXJP_ZBRQKd1VE_Hqbg==/16625715324173485.jpg'},
   ]
 }
+
 
 Mock.mock('https://www.csdn.net/api/mock','get',{
     lunbo

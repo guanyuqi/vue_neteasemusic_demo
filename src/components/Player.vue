@@ -1,6 +1,6 @@
 <template>
     <div id="player" >
-        <audio id="audio" src="http://music.163.com/song/media/outer/url?id=460578140.mp3" ></audio>
+        <audio id="audio" :src="songmsg.src" loop='false'></audio>
         <div class="normalplayer" v-show="playershow">
             <mt-header fixed>
                 <div @click="back" slot="left">
@@ -8,15 +8,15 @@
                 </div>
             </mt-header>
             <div class="backimg">
-                <img src="http://p1.music.126.net/oVCpfPtfAqNcAbRWMU7ffA==/109951163801547166.jpg?param=130y130">
+                <img :src='songmsg.img'>
             </div>
             <nav>
-                <span>人间不值得</span>
-                <p>黄诗扶</p>
+                <span>{{songmsg.name}}</span>
+                <p>{{songmsg.singer}}</p>
             </nav>
             <div class="disk">
                 <div id="diskinner">
-                    <img src="http://p1.music.126.net/oVCpfPtfAqNcAbRWMU7ffA==/109951163801547166.jpg?param=130y130">
+                    <img :src='songmsg.img'>
                 </div>
             </div>
             
@@ -53,15 +53,15 @@
             </div>
         
         </div>
-        <div class="miniplayer" v-if="true">
+        <div class="miniplayer" v-show="miniplayershow">
             <div class="minidisk" @click='normalshow'>
                 <div id="minidiskinner">
-                    <img src="http://p1.music.126.net/oVCpfPtfAqNcAbRWMU7ffA==/109951163801547166.jpg?param=130y130">
+                    <img :src='songmsg.img'>
                 </div>
             </div>
             <div class="miniinfo">
-                <div class="songname">人间不值得</div>
-                <div class="singer">黄诗扶</div>
+                <div class="songname">{{songmsg.name}}</div>
+                <div class="singer">{{songmsg.singer}}</div>
             </div>
             <div class="miniplaying" >
                 <span v-if="playflg"  @click="play" class="mui-icon iconfont icon-Play"></span>
@@ -73,6 +73,7 @@
 </template>
 <script>
 import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
+import { constants } from 'buffer';
 export default {
     data(){
         return {
@@ -84,7 +85,8 @@ export default {
             duration_show_sec: 1,
             timer : null,
             current : '00:00',
-            currentroutename: ''
+            currentroutename: '',
+            playershow : ''
         } 
     },
     mounted(){
@@ -93,100 +95,83 @@ export default {
         // this.get_currentroutename()
         
     },
-    beforeDestroy() {
-        clearInterval(this.timer);        
-        this.timer = null;
-    },
+
     methods:{
         back(){
             //this.$router.go(-1);//返回上一层
-            console.log('player正在回退')
+            console.log('player回退')
             this.$store.dispatch('playshowfalse')
             this.set_index()
+            this.$store.dispatch('miniplayshowtrue')
         },
         //点击播放按键
         play(){
-            this.playflg = !this.playflg
+            this.playflg = false
             let audio = document.querySelector('#audio');
             let disk = document.querySelector('#diskinner')
             let minidisk = document.querySelector('#minidiskinner')
-            if(this.playflg == false){
-                console.log('正在播放')
-                audio.play() 
-                disk.classList.add("rotate");
-                minidisk.classList.add("rotate");
-                disk.style.webkitAnimationPlayState = "running";  
-                minidisk.style.webkitAnimationPlayState = "running";    //disk旋转
-                this.timer = setInterval(() => {                       //开启定时器
-                   
-                    
-                    this.rangeValue = this.rangeValue + 1
-                    let timedifrence = Math.abs(this.rangeValue - parseInt(audio.currentTime))      //****核心*****
-                    if(timedifrence >= 5){                                                          //判断rangeValue(进度值)和当前时间差距
-                        audio.currentTime = this.rangeValue                                         //如果拖动超过5S差值，即刻更新当前时间
-                    }
-                    var min = parseInt(audio.currentTime/60)
-                    var sec = parseInt(audio.currentTime%60)
-                    if (sec < 10){
-                        sec = '0'+ sec
-                    }
-                    if(min < 1){
-                        this.current = "00"+":"+ sec                 //拼接当前播放时间
-                    }else{
-                        this.current = "0"+min+":"+sec
-                    }
-                    if(audio.currentTime >= audio.duration){
-                                           //时间满了后完成停止的操作即可，也要把时间归零
-                        this.playflg = false           
-                        this.stop()
-                        console.log('时间满 停止第一次')
-                        disk.style.webkitAnimationPlayState = "paused";
-                        minidisk.style.webkitAnimationPlayState = "paused";
-                        this.current = '00:00' 
-                        this.rangeValue = 0
-                        audio.currentTime = 0
-                        this.stop()
-                        console.log('时间满 停止第二次')
-                        clearInterval(this.timer);        
-                        this.timer = null;
-                        console.log(audio.paused)
-                    }
-                },1000)   
-            }else{
-                console.log('play的停止')
-                audio.pause()
-                disk.style.webkitAnimationPlayState = "paused";
-                minidisk.style.webkitAnimationPlayState = "paused";
-                clearInterval(this.timer);        
-                this.timer = null;   
+            console.log('正在播放')
+            audio.play() 
+            disk.classList.add("rotate");
+            minidisk.classList.add("rotate");
+            disk.style.webkitAnimationPlayState = "running";  
+            minidisk.style.webkitAnimationPlayState = "running";    //disk旋转
+            let that = this
+            audio.ontimeupdate = function(){
+                let timedifrence = Math.abs(that.rangeValue - parseInt(audio.currentTime))
+                var min = parseInt(audio.currentTime/60)
+                var sec = parseInt(audio.currentTime%60)
+                if (sec < 10){
+                    sec = '0'+ sec
+                }
+                if(min < 1){
+                    that.current = "00"+":"+ sec                 //拼接当前播放时间
+                }else{
+                    that.current = "0"+min+":"+sec
+                }      //****核心*****
+                if(timedifrence >= 5){                                                          //判断rangeValue(进度值)和当前时间差距
+                    audio.currentTime = that.rangeValue                                         //如果拖动超过5S差值，即刻更新当前时间
+                }else{
+                    that.rangeValue = parseInt(audio.currentTime)
+                }
             }
-            
         },
         stop(){
+            this.playflg == true
             let audio = document.querySelector('#audio');
             let disk = document.querySelector('#diskinner');
             let minidisk = document.querySelector('#minidiskinner')
             this.playflg = !this.playflg
-            if(this.playflg == true){
-                audio.pause()
-                disk.style.webkitAnimationPlayState = "paused";
-                minidisk.style.webkitAnimationPlayState = "paused";
-                clearInterval(this.timer);        
-                this.timer = null;
-            }
+            audio.pause()
+            disk.style.webkitAnimationPlayState = "paused";
+            minidisk.style.webkitAnimationPlayState = "paused";
+            clearInterval(this.timer);  
+            console.log('暂停播放')      
         },
-        gettime(){
-            console.log('正在加载时间')
+        clear(){
+            let audio = document.querySelector('#audio');
+            let disk = document.querySelector('#diskinner')
+            let minidisk = document.querySelector('#minidiskinner')
+            this.playflg = true           
+            this.stop()
+            disk.style.webkitAnimationPlayState = "paused";
+            minidisk.style.webkitAnimationPlayState = "paused";
+            this.current = '00:00' 
+            this.rangeValue = 0
+            audio.currentTime = 0.1
+            console.log('清除进度')
+        },
+        gettime(){ 
             let audio = document.querySelector('#audio');
             let that = this
-            audio.addEventListener("canplay", function(){
-                audio.play()
-                var audio_duration = parseInt(audio.duration)
-                that.duration = audio_duration
-                that.duration_show_min = parseInt(audio.duration/60)
-                that.duration_show_sec = parseInt(audio_duration % 60)
-                console.log(that.duration_show_min)
-                })
+            var audio_duration = parseInt(audio.duration)
+            that.duration = audio_duration
+            that.duration_show_min = parseInt(audio.duration/60)
+            that.duration_show_sec = parseInt(audio_duration % 60)
+            if(that.duration_show_sec<10){
+                that.duration_show_sec = '0'+that.duration_show_sec
+            }
+            console.log('加载时间完成')
         },
         set_index(){
             let player = document.querySelector('#player')
@@ -200,31 +185,29 @@ export default {
         normalshow(){
             console.log('显示大播放器')
             this.$store.dispatch('playshowtrue')
+            this.$store.dispatch('miniplayshowfalse')
+            this.$store.dispatch('searchflg_1')
         }
     },
     computed:{
-        ...mapState(['searchflg','playershow']),
+        ...mapState(['searchflg','playershow','miniplayershow','songmsg']),
 
         isShow() {  
-            return this.$store.state.playershow;
+            return this.playershow = this.$store.state.playershow;
+            console.log('computed计算出了')
+        },
+
+        isPlaying() {                                                       //监视当前播放歌曲数据
+            return this.$store.state.songmsg.name;
         }
     },
     watch:{
         rangeValue(rangeValue){
-            
-            // console.log("检测!!!!!!!!!!!")
-            if(this.rangeValue == this.duration){ 
+            if(this.rangeValue == this.duration){                   //进度慢即刻清空停止
+                this.clear()
+                this.stop()
+                          
                     
-                    this.rangeValue = 0    
-                    audio.currentTime = 0
-                    this.current = '00:00'
-                    this.playflg = false           
-                    this.stop()
-                    setTimeout(()=>{
-                        let audio = document.querySelector('#audio');
-                        audio.pause()
-                        console.log("我听了")
-                    },100)
                     
             }
         },
@@ -233,28 +216,35 @@ export default {
         },
         isShow(){
             if(this.$store.state.playershow == true ){
-                console.log('检测到playershow为true变化')
-                this.play()
-                this.gettime()
-                this.set_index()
-                 console.log('检测到index')
+                let that = this
+                console.log('万恶之源!!!!!')
+                audio.oncanplay = function(){
+                    console.log('可以显示，开始播放!!!!!')
+                    that.play()
+                    that.gettime()
+                    that.set_index()
+                }
+                setTimeout(() => {
+                    audio.oncanplay = function(){}
+                }, 5000);
+                
             }else{
                 console.log('watch调用back')
-                this.back()
+                // this.back()
             }
+        },
+        isPlaying(){                                        //如果当前歌曲数据改变即刻清空播放数据
+            
+            this.clear()
+            this.play()
+            console.log('检测到变化，正在停止清空 播放下一首')
         }
+
     }  
 }
 </script>
 <style lang="scss">
-    // #player{
-    //     height:100%;
-    //     width:100%;
-    //     position: absolute;
-    //     z-index: 1001;
-    //     // background-color: #666;
-
-    // }
+    
     #player  .mint-header {
         background-color:transparent; 
         margin-top: 10px;
@@ -288,15 +278,15 @@ export default {
         }
     }
     .normalplayer > .disk{
-        width: 300px;
-        height: 300px;
+        width: 270px;
+        height: 270px;
         background-color: rgba(0,0,0,0.3);
         margin: 80px auto;
         border-radius: 50%;
         padding: 15px 15px 15px 15px;
         #diskinner{
-            width: 270px;
-            height: 270px; 
+            width: 240px;
+            height: 240px; 
         }
 
     }

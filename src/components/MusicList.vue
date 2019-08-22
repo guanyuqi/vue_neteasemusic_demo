@@ -22,7 +22,7 @@
                         <span class="mui-icon iconfont icon-Video"></span>
                         <span class="listheadspan">播放全部<span>(共{{ musiclist.length }}首)</span></span>
                     </div>
-                    <div class="countantbox" v-for="item in musiclist" :key="item.id" @click="set_player" :to="'/home/music' + item.id">
+                    <div class="countantbox" v-for="item in musiclist" :key="item.id" @click="set_player(item.id)" :to="'/home/music' + item.id">
                         <div class="num">{{item.id}}</div>
                         <div class="msg">
                             <div>{{item.name}}</div>
@@ -45,9 +45,6 @@ export default {
             musiclist:[],
             currentroutename: ''
         } 
-    },
-    mounted(){
-
     },
     mounted() {
     //挂载请求
@@ -84,14 +81,19 @@ export default {
     },
     get_currentroutename(){
       this.currentroutename = this.$route.name
-      console.log(this.currentroutename)
       this.$store.dispatch('searchflg',this.currentroutename)
     },
-    set_player(){
-        console.log('开始播放')
+    set_player(id){
+        console.log('进入播放器')
         this.$store.dispatch('playshowtrue')
-        console.log('开始播放')
         this.$store.dispatch('searchflg_1')
+        this.$store.dispatch('miniplayshowfalse')
+        let songmsg = {}
+        songmsg.name = this.musiclist[id-1].name
+        songmsg.singer = this.musiclist[id-1].singer
+        songmsg.src = this.musiclist[id-1].songid
+        songmsg.img = this.musiclist[id-1].songimg
+         this.$store.dispatch('getsongmsg',songmsg)
     }
 
     },
