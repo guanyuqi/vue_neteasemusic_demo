@@ -1,3 +1,7 @@
+https://github.com/guanyuqi/vue_neteasemusic_demo/tree/master/src/assets/demo.gif
+
+
+
 ### day1：
 
 ​	今天看了下别人的项目觉得挺有意思的，想了想我的项目都是跟网上视频做的，都是跟着别人思路走，对个人能力感觉没啥用。这次就干脆自己从0开始弄吧，顺便也温习下vue。
