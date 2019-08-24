@@ -1,4 +1,6 @@
-https://github.com/guanyuqi/vue_neteasemusic_demo/tree/master/src/assets/demo.gif
+
+### 展示
+<img src="https://github.com/guanyuqi/vue_neteasemusic_demo/tree/master/src/assets/demo.gif" alt="show" />
 
 
 
