@@ -11,17 +11,17 @@
     <div class="contantbox">
       <div class="head">推荐歌单</div>
       <ul>
-        <li v-for="item in songimg" :key="item.id" >
+        <li v-for="item in musiclistmsg" :key="item.id" >
           <router-link  :to="'/home/musiclist/' + item.id">
             <div class="songlistcontant">
-              <img :src="item.img" alt="">
+              <img :src="item.picUrl" alt="">
               <div class="songlistcount">
                 <span class="mui-icon iconfont icon-Video"></span>
-                <span>{{item.count}}</span>
+                <span>{{Math.floor(item.playCount/10000)}}万</span>
               </div>
             </div>
           </router-link>
-          <p class="info">{{item.txt}}</p>
+          <p class="info">{{item.name}}</p>
         </li>
       </ul>
     </div>
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
      lunbolist:[],
-     songimg:[]
+     musiclistmsg:[]
     }
   },
  mounted() {
@@ -65,9 +65,10 @@ export default {
     getsongimg(){
       let that = this
       const axios = require('axios');
-      axios.get('https://www.csdn.net/api/song')
+      axios.get('http://192.168.2.100:3000/personalized?limit=15')
         .then(function (res) {
-          that.songimg = res.data.songimg.img
+          that.musiclistmsg = res.data.result
+          console.log(that.musiclistmsg)
         })
         .catch(function (error) {
           console.log(error);

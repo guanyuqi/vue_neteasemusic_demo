@@ -27,7 +27,7 @@ export default {
     getmusiclistinfo(){
         let that = this
         const axios = require('axios');
-        axios.get('https://www.csdn.net/api/list')
+        axios.get(' http://192.168.2.100:3000/personalized?limit=15')
             .then(function (res) {
             console.log(res)
             })
