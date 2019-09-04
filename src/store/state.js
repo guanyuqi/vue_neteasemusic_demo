@@ -6,10 +6,6 @@ export default {
   play: false,
   playershow: false,
   miniplayershow: false,
-  songmsg:{
-    name: '',
-    singer: '',
-    img: '',
-    src: '',
-  }
+  songindex: 0,
+  musiclist:[]
 }

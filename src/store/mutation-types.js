@@ -12,4 +12,5 @@ export const SET_PLAYERSHOW_FALSE = 'set_playershow_false'
 export const SET_MINIPLAYERSHOW_TRUE = 'set_miniplayershow_true'
 export const SET_MINIPLAYERSHOW_FALSE = 'set_miniplayershow_false'
 
-export const GET_SONGMSG = 'get_songmsg'
+export const SET_SONGINDEX = 'set_songindex'
+export const SET_MUSICLIST = 'set_musiclist'

@@ -1,8 +1,10 @@
 <template>
   <div class="about">
     
-    <button >点我</button>
-    <div class="laoer">{{searchflg}}</div>
+    <button @click="jia">点我</button>
+    <div class="laoer" >{{searchflg}}</div>
+    <div>{{musiclist[songindex]}}</div>
+    <!-- <div>{{music}}</div> -->
 
   </div>
 </template>
@@ -14,29 +16,27 @@ export default {
   data() {
     return {
       currentroutename: '',
+      count : 0,
+      music :  this.$store.state.musiclist
     }
   },
   mounted(){
     // this.get_currentroutename()
-    this.getmusiclistinfo()
+   
   },
   computed:{
-    ...mapState(['searchflg','nmsl'])
+    ...mapState(['searchflg','nmsl','musiclist','songindex']),
+    
+  },
+  watch:{
+    count(){
+      this.music =  this.$store.state.musiclist[this.count]
+    }
   },
   methods:{
-    getmusiclistinfo(){
-        let that = this
-        const axios = require('axios');
-        axios.get(' http://192.168.2.100:3000/personalized?limit=15')
-            .then(function (res) {
-            console.log(res)
-            })
-            .catch(function (error) {
-            console.log(error);
-            })
-            .then(function () {
-            });
-    },
+    jia(){
+      this.count=this.count+1
+    }
   },
 }
 </script>

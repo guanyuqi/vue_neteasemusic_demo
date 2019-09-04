@@ -1,6 +1,6 @@
 <template>
     <div id="player" >
-        <audio id="audio" :src="songmsg.src" loop='false'></audio>
+        <audio id="audio" :src="musiclist[songindex].src" loop='false'></audio>
         <div class="normalplayer" v-show="playershow">
             <mt-header fixed>
                 <div @click="back" slot="left">
@@ -8,15 +8,15 @@
                 </div>
             </mt-header>
             <div class="backimg">
-                <img :src='songmsg.img'>
+                <img :src='musiclist[songindex].img'>
             </div>
             <nav>
-                <span>{{songmsg.name}}</span>
-                <p>{{songmsg.singer}}</p>
+                <span>{{musiclist[songindex].name}}</span>
+                <p>{{musiclist[songindex].singer}}</p>
             </nav>
             <div class="disk">
                 <div id="diskinner">
-                    <img :src='songmsg.img'>
+                    <img :src='musiclist[songindex].img'>
                 </div>
             </div>
             
@@ -37,14 +37,14 @@
                         <span class="mui-icon iconfont icon-Repeat"></span>
                     </div>
                     <div class="front">
-                        <span class="mui-icon iconfont icon-Previous"></span>
+                        <span class="mui-icon iconfont icon-Previous"  @click="front"></span>
                     </div>
                     <div class="playing" >
                         <span v-if="playflg"  @click="play" class="mui-icon iconfont icon-Play"></span>
                         <span v-if="!playflg" @click="stop" class="mui-icon iconfont icon-Pause"></span>
                     </div>
                     <div class="behind">
-                        <span class="mui-icon iconfont icon-Next"></span>
+                        <span class="mui-icon iconfont icon-Next" @click="behind"></span>
                     </div>
                     <div class="love">
                         <span class="mui-icon iconfont icon-Mix"></span>
@@ -56,12 +56,12 @@
         <div class="miniplayer" v-show="miniplayershow">
             <div class="minidisk" @click='normalshow'>
                 <div id="minidiskinner">
-                    <img :src='songmsg.img'>
+                    <img :src='musiclist[songindex].img'>
                 </div>
             </div>
             <div class="miniinfo">
-                <div class="songname">{{songmsg.name}}</div>
-                <div class="singer">{{songmsg.singer}}</div>
+                <div class="songname">{{musiclist[songindex].name}}</div>
+                <div class="singer">{{musiclist[songindex].singer}}</div>
             </div>
             <div class="miniplaying" >
                 <span v-if="playflg"  @click="play" class="mui-icon iconfont icon-Play"></span>
@@ -187,10 +187,27 @@ export default {
             this.$store.dispatch('playshowtrue')
             this.$store.dispatch('miniplayshowfalse')
             this.$store.dispatch('searchflg_1')
+        },
+        behind(){
+            var songindex = this.$store.state.songindex + 1
+            let length = this.$store.state.musiclist.length
+            if(songindex>length){
+                songindex = 0
+            }
+            this.$store.dispatch('setsongindex',songindex)
+            this.clear() 
+        },
+        front(){
+            var songindex = this.$store.state.songindex - 1
+            if(songindex<0){
+                songindex = this.$store.state.musiclist.length-1
+            }
+            this.$store.dispatch('setsongindex',songindex)
+            this.clear() 
         }
     },
     computed:{
-        ...mapState(['searchflg','playershow','miniplayershow','songmsg']),
+        ...mapState(['searchflg','playershow','miniplayershow','songindex','musiclist']),
 
         isShow() {  
             return this.playershow = this.$store.state.playershow;
@@ -198,17 +215,20 @@ export default {
         },
 
         isPlaying() {                                                       //监视当前播放歌曲数据
-            return this.$store.state.songmsg.name;
+            return this.$store.state.musiclist[songindex];
+        },
+
+        issongindex(){
+             return this.$store.state.songindex;
         }
     },
     watch:{
         rangeValue(rangeValue){
             if(this.rangeValue == this.duration){                   //进度慢即刻清空停止
                 this.clear()
-                this.stop()
-                          
-                    
-                    
+                this.stop()  
+                console.log('播放完毕自动暂停！！！！！！！！！')
+                this.behind()   
             }
         },
         $route(e){
@@ -217,7 +237,7 @@ export default {
         isShow(){
             if(this.$store.state.playershow == true ){
                 let that = this
-                console.log('万恶之源!!!!!')
+                console.log('万恶之源!!!!!!!!!!!')
                 audio.oncanplay = function(){
                     console.log('可以显示，开始播放!!!!!')
                     that.play()
@@ -234,10 +254,20 @@ export default {
             }
         },
         isPlaying(){                                        //如果当前歌曲数据改变即刻清空播放数据
-            
             this.clear()
             this.play()
             console.log('检测到变化，正在停止清空 播放下一首')
+        },
+        issongindex(){
+           let that = this
+            audio.oncanplay = function(){
+                console.log('切歌成功，准备播放')
+                that.play()
+                that.gettime()
+            }
+            setTimeout(() => {
+                audio.oncanplay = function(){}
+            }, 5000);
         }
 
     }  

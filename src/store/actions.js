@@ -3,7 +3,7 @@
  */
 import {SET_SEARCHFLG_HIDE, SET_SEARCHFLG_SHOW, SET_PLAY_TRUE, SET_PLAY_FALSE,
         SET_PLAYERSHOW_TRUE, SET_PLAYERSHOW_FALSE,  SET_MINIPLAYERSHOW_TRUE, SET_MINIPLAYERSHOW_FALSE,
-        GET_SONGMSG} from './mutation-types'
+        SET_SONGINDEX, SET_MUSICLIST} from './mutation-types'
 
 export default {
 
@@ -43,8 +43,11 @@ export default {
     commit(SET_MINIPLAYERSHOW_FALSE)
   },
 
-  getsongmsg({commit},payload) {
-    commit(GET_SONGMSG,payload)
+  setsongindex({commit},payload) {
+    commit(SET_SONGINDEX,payload)
+  },
+  setmusiclist({commit},payload){
+    commit(SET_MUSICLIST,payload)
   },
 
 

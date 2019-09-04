@@ -4,7 +4,7 @@
 
 import {SET_SEARCHFLG_SHOW, SET_SEARCHFLG_HIDE, SET_PLAY_TRUE, SET_PLAY_FALSE,
         SET_PLAYERSHOW_TRUE, SET_PLAYERSHOW_FALSE, SET_MINIPLAYERSHOW_TRUE, SET_MINIPLAYERSHOW_FALSE,
-        GET_SONGMSG} from './mutation-types'
+        SET_SONGINDEX, SET_MUSICLIST} from './mutation-types'
 
 export default {
   [SET_SEARCHFLG_SHOW] (state ) {
@@ -39,11 +39,11 @@ export default {
     state.miniplayershow = false
   },
 
-  [GET_SONGMSG] (state,payload) {
-    state.songmsg.name = payload.name
-    state.songmsg.singer = payload.singer
-    state.songmsg.img = payload.img
-    state.songmsg.src = payload.src
-
+  [SET_SONGINDEX] (state,payload) {
+    state.songindex = payload
+  },
+  
+  [SET_MUSICLIST] (state,payload) {
+    state.musiclist= payload
   },
 }
