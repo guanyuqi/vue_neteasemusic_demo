@@ -11,7 +11,7 @@
 			<router-link to="/home" class="mui-tab-item " style="height:35px" href="#tabbar">
 				<span class="mui-tab-label">推荐</span>
 			</router-link>
-			<router-link to="/about" class="mui-tab-item" style="height:35px" href="#tabbar-with-chat">
+			<router-link to="/ranking" class="mui-tab-item" style="height:35px" href="#tabbar-with-chat">
 				<span class="mui-tab-label">排行</span>
 			</router-link>
 			<router-link to="/singer" class="mui-tab-item"  style="height:35px" href="#tabbar-with-contact">

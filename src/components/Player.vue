@@ -90,7 +90,7 @@ export default {
         } 
     },
     mounted(){
-        // this.play()
+        this.play()
         this.gettime()
         // this.get_currentroutename()
         

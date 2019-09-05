@@ -68,7 +68,7 @@ export default {
       axios.get('http://192.168.2.100:3000/personalized?limit=15')
         .then(function (res) {
           that.musiclistmsg = res.data.result
-          console.log(that.musiclistmsg)
+          
         })
         .catch(function (error) {
           console.log(error);

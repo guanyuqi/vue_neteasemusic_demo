@@ -8,7 +8,7 @@ import {SET_SEARCHFLG_HIDE, SET_SEARCHFLG_SHOW, SET_PLAY_TRUE, SET_PLAY_FALSE,
 export default {
 
   searchflg({commit}, routename) {
-    if(routename == 'player' || routename == 'musiclist'){
+    if(routename == 'player' || routename == 'musiclist' || routename == 'ranklist' || routename == 'singerlist'){
       commit(SET_SEARCHFLG_HIDE)
     }else{
       commit(SET_SEARCHFLG_SHOW)
