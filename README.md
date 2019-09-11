@@ -1,5 +1,9 @@
+### 效果图
 
-### 展示GIF链接
+![image](https://github.com/guanyuqi/vue_neteasemusic_demo/tree/master/src/assets/demo.png)
+
+### 展示GIF
+
 ![image](https://github.com/guanyuqi/vue_neteasemusic_demo/tree/master/src/assets/demo.gif)
 
 
